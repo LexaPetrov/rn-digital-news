@@ -1,12 +1,15 @@
 import React from 'react'
-import { View } from 'react-native'
+import { View, Text } from 'react-native'
 
 
-export default props => {
-
+const Feedback = props => {
     return (
         <View>
-            Feedback
+            <Text>FEEDBACK</Text>
         </View>
     )
 }
+
+
+
+export default Feedback

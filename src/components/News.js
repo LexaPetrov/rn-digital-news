@@ -1,9 +1,8 @@
 import React, { useEffect, useReducer } from 'react'
-import { View, Text, Image, ScrollView, TouchableOpacity, StyleSheet } from 'react-native'
+import { View, Text, Image, ScrollView, TouchableOpacity, StyleSheet, Platform } from 'react-native'
 import reducer from '../reducer/reducer'
 import * as actions from '../reducer/actions'
-
-export default props => {
+const News = props => {
     const initialState = {
         news: []
     }
@@ -13,23 +12,32 @@ export default props => {
         actions.getNews(dispatch)
     }, [])
 
+    const onPress = (v) => {
+        let info = {
+            text: v.text,
+            title: v.title,
+            date: v.date
+        }
+        props.navigation.navigate('Post', { screen: 'Post', info })
+    }
+
+   
     return (
-        <View style={styles.newsContainer}>
-            <ScrollView>
+        <ScrollView>
+            <View style={styles.newsContainer}>
                 {
                     state.news.map((v, i) => {
-
                         return (
-                            <View  key={i} style={[styles.shadow, styles.whiteBackground]}>
-                                <TouchableOpacity>
+                            <View key={i} style={[styles.shadow, styles.whiteBackground]}>
+                                <TouchableOpacity onPress={() => onPress(v)}>
                                     <View style={[styles.newsItem]}>
                                         <Text style={styles.newsTitle}>
                                             {v.title}
                                         </Text>
                                         <Image
                                             source={{
-                                                uri: 'https://i.pinimg.com/736x/50/df/34/50df34b9e93f30269853b96b09c37e3b.jpg'
-                                                // uri: v.img
+                                                // uri: 'https://i.pinimg.com/736x/50/df/34/50df34b9e93f30269853b96b09c37e3b.jpg'
+                                                uri: v.img
                                             }}
                                             style={styles.newsImage}
                                         />
@@ -43,10 +51,13 @@ export default props => {
                         )
                     })
                 }
-            </ScrollView>
-        </View>
-
+            </View>
+        </ScrollView>
     )
+}
+
+News.navigationOptions = {
+    headerTitle: 'Новости'
 }
 
 
@@ -60,13 +71,12 @@ const styles = StyleSheet.create({
     },
     newsContainer: {
         justifyContent: "center",
-        alignItems: "center",
-        marginVertical: 50,
-        paddingHorizontal: 10,
+        alignItems: 'center',
+        paddingHorizontal: 0,
     },
     newsImage: {
-        width: 320,
-        height: 200,
+        width: Platform.OS === 'web' ? 730 : 320,
+        height: Platform.OS === 'web' ? 400 : 200,
     },
     newsItem: {
         padding: 5,
@@ -76,7 +86,7 @@ const styles = StyleSheet.create({
         fontSize: 15,
         color: '#5fa9ee',
         fontWeight: 'bold',
-
+        width: Platform.OS === 'web' ? 730 : 320,
     },
     newsDate: {
         fontSize: 12,
@@ -91,7 +101,9 @@ const styles = StyleSheet.create({
     },
     whiteBackground: {
         backgroundColor: 'white',
-        marginVertical:10,
-        marginHorizontal:10
+        marginVertical: 10,
+        marginHorizontal: 10
     }
 })
+
+export default News
