@@ -21,7 +21,7 @@ const Post = props => {
             <View style={styles.postWrapper}>
                 <Text style={styles.postTitle}>{info.title}</Text>
                 <Text style={styles.postDate}>{info.date}</Text>
-                <Text>{RemoveTabs(info.text)}</Text>
+                <Text style={styles.postText}>{RemoveTabs(info.text)}</Text>
             </View>
         </ScrollView>
     )
@@ -45,6 +45,9 @@ const styles = StyleSheet.create({
         marginTop: 2,
         overflow: "hidden",
         textAlign: "center"
+    },
+    postText: {
+        fontSize: 14
     }
 })
 

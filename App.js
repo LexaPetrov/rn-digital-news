@@ -1,26 +1,27 @@
 import React from 'react';
 import News from './src/components/News'
 import Feedback from './src/components/Feedback'
+import Services from './src/components/Services'
+import Post from './src/components/Post'
 import { Platform } from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { FontAwesome5, MaterialIcons } from '@expo/vector-icons';
-import Post from './src/components/Post';
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator()
 
 const getHeaderTitle = route => {
-  const routeName = route.state ? route.state.routes[route.state.index].name : '#минцифра56: Новости'
-  console.log(routeName);
-  
+  const routeName = route.state ? route.state.routes[route.state.index].name : '#минцифра56: События'
   switch (routeName) {
     case 'News':
-      return '#минцифра56: Новости'
+      return '#минцифра56: События 🎈'
     case 'Feedback':
-      return '#минцифра56: Оставить обращение'
-    case '#минцифра56: Новости':
-      return '#минцифра56: Новости'
+      return '#минцифра56: Интернет-приемная 📝'
+    case 'Services':
+      return '#минцифра56:Сервисы 🛠'
+    case '#минцифра56: События':
+      return '#минцифра56: События 🎈'
   }
 }
 
@@ -44,7 +45,7 @@ function navTab({ navigation, route }) {
     >
       <Tab.Screen
         options={{
-          tabBarLabel: 'Новости',
+          tabBarLabel: 'События',
           tabBarIcon: ({ focused }) => (
             <FontAwesome5 name="newspaper" size={20} color={focused ? '#00185c' : 'gray'} />
           ),
@@ -61,6 +62,16 @@ function navTab({ navigation, route }) {
         }}
         name="Feedback"
         component={Feedback}
+      />
+      <Tab.Screen
+        options={{
+          tabBarLabel: 'Сервисы',
+          tabBarIcon: ({ focused }) => (
+            <FontAwesome5 name="external-link-alt" size={20} color={focused ? '#00185c' : 'gray'} />
+          )
+        }}
+        name="Services"
+        component={Services}
       />
     </Tab.Navigator>
   )
@@ -87,7 +98,7 @@ export default function App() {
         <Stack.Screen name="Post" component={Post}
           options={{
             headerStyle: {
-              backgroundColor: Platform.OS === 'android' ? '#00185c' : 'white',
+              backgroundColor: Platform.OS === 'android' ? '#00185c' : 'white'
             },
             headerTintColor: Platform.OS === 'android' ? 'white' : '#00185c',
             headerTitle: 'Post'

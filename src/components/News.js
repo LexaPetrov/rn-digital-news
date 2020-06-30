@@ -1,10 +1,11 @@
 import React, { useEffect, useReducer } from 'react'
-import { View, Text, Image, ScrollView, TouchableOpacity, StyleSheet, Platform } from 'react-native'
+import { View, Text, Image, ScrollView, TouchableOpacity, StyleSheet, Platform, FlatList, SafeAreaView } from 'react-native'
 import reducer from '../reducer/reducer'
 import * as actions from '../reducer/actions'
 const News = props => {
     const initialState = {
-        news: []
+        news: [],
+        refreshing: true
     }
     const [state, dispatch] = useReducer(reducer, initialState)
 
@@ -12,47 +13,62 @@ const News = props => {
         actions.getNews(dispatch)
     }, [])
 
+    setTimeout(() => {
+        if (state.news.length === 0) {
+            actions.getNewsFromGithub(dispatch)
+        }
+    }, 5000)
+
     const onPress = (v) => {
         let info = {
             text: v.text,
             title: v.title,
             date: v.date
         }
-        props.navigation.navigate('Post', { screen: 'Post', info })
+        props.navigation.navigate('Post', { screen: 'Post', info, headerBackTitle: 'Назад' })
     }
 
-   
-    return (
-        <ScrollView>
-            <View style={styles.newsContainer}>
-                {
-                    state.news.map((v, i) => {
-                        return (
-                            <View key={i} style={[styles.shadow, styles.whiteBackground]}>
-                                <TouchableOpacity onPress={() => onPress(v)}>
-                                    <View style={[styles.newsItem]}>
-                                        <Text style={styles.newsTitle}>
-                                            {v.title}
-                                        </Text>
-                                        <Image
-                                            source={{
-                                                // uri: 'https://i.pinimg.com/736x/50/df/34/50df34b9e93f30269853b96b09c37e3b.jpg'
-                                                uri: v.img
-                                            }}
-                                            style={styles.newsImage}
-                                        />
-                                        <Text style={styles.newsDate}>
-                                            {v.date}
-                                        </Text>
-                                    </View>
-                                </TouchableOpacity>
-                            </View>
+    const handleRefresh = () => {
+        dispatch({type: 'REFRESHING_TRUE'})
+        actions.getNews(dispatch)
+        dispatch({type: 'REFRESHING_FALSE'})
+    }
 
-                        )
-                    })
-                }
-            </View>
-        </ScrollView>
+    return (
+        <View style={{flex: 1}}>
+            {
+                state.news && <FlatList
+                        data={state.news.length !== 0 ? state.news : null}
+                        renderItem={({ item }) => (
+                            <View style={styles.newsContainer}>
+                                <View style={[styles.shadow, styles.whiteBackground]}>
+                                    <TouchableOpacity onPress={() => onPress(item)}>
+                                        <View style={[styles.newsItem]}>
+                                            <Text style={styles.newsTitle} numberOfLines={1}>
+                                                {item.title}
+                                            </Text>
+                                            <Image
+                                                source={{
+                                                    // uri: 'https://i.pinimg.com/736x/50/df/34/50df34b9e93f30269853b96b09c37e3b.jpg'
+                                                    uri: item.img
+                                                }}
+                                                style={styles.newsImage}
+                                            />
+                                            <Text style={styles.newsDate}>
+                                                {item.date}
+                                            </Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                        )}
+                        keyExtractor={item => item.date}
+                        refreshing={state.refreshing}
+                        onRefresh={handleRefresh}
+                    />
+            }
+
+        </View>
     )
 }
 
@@ -62,6 +78,12 @@ News.navigationOptions = {
 
 
 const styles = StyleSheet.create({
+    loader: {
+        backgroundColor: 'green',
+        color: 'white',
+        alignSelf: 'stretch',
+        textAlign: 'center'
+    },
     shadow: {
         shadowColor: 'black',
         shadowRadius: 3,
@@ -83,8 +105,8 @@ const styles = StyleSheet.create({
         overflow: "hidden"
     },
     newsTitle: {
-        fontSize: 15,
-        color: '#5fa9ee',
+        fontSize: 16,
+        color: '#00185c',
         fontWeight: 'bold',
         width: Platform.OS === 'web' ? 730 : 320,
     },
