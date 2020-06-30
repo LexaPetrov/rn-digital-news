@@ -27,6 +27,9 @@ const Services = props => {
                 <View style={styles.link}>
                     <Button  title='📈 Рейтинги ОМСУ' onPress={() => openURL('http://smev.orb.ru/statisticheskaya-informaciya/rating-omsu/')} />
                 </View>
+                <View style={styles.link}>
+                    <Button  title='🔗 МИНЦИФРА' onPress={() => openURL('https://digital.orb.ru/')} />
+                </View>
             </View>
         </ScrollView>
     )
