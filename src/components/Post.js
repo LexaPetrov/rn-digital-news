@@ -1,5 +1,5 @@
 import React from 'react'
-import { ScrollView, Text, View, StyleSheet } from 'react-native'
+import { ScrollView, Text, View, StyleSheet, Platform } from 'react-native'
 
 
 const Post = props => {
@@ -29,7 +29,9 @@ const Post = props => {
 
 const styles = StyleSheet.create({
     postWrapper: {
-        padding: 10
+        padding: 10,
+        maxWidth: Platform.OS === 'web' ? 700 : null,
+        alignSelf: Platform.OS === 'web' ? 'center' : null
     },
     postTitle: {
         fontWeight: "bold",

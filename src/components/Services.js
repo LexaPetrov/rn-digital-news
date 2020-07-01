@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet, Linking, Button } from 'react-native'
+import { View, StyleSheet, Linking, Button, Platform } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 
 
@@ -38,6 +38,8 @@ const Services = props => {
 const styles = StyleSheet.create({
     container: {
         padding: 10,
+        maxWidth: Platform.OS === 'web' ? 700 : null,
+        alignSelf: Platform.OS === 'web' ? 'center' : null
     },
     link: {
         marginTop: 15

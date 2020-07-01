@@ -29,15 +29,49 @@ const News = props => {
     }
 
     const handleRefresh = () => {
-        dispatch({type: 'REFRESHING_TRUE'})
+        dispatch({ type: 'REFRESHING_TRUE' })
         actions.getNews(dispatch)
-        dispatch({type: 'REFRESHING_FALSE'})
+        dispatch({ type: 'REFRESHING_FALSE' })
     }
 
-    return (
-        <View style={{flex: 1}}>
-            {
-                state.news && <FlatList
+    if (Platform.OS === 'web') {
+        return (
+            <ScrollView>
+                <View style={styles.newsContainer}>
+                    {
+                        state.news.map((v, i) => {
+                            return (
+                                <View key={i} style={[styles.shadow, styles.whiteBackground]}>
+                                    <TouchableOpacity onPress={() => onPress(v)}>
+                                        <View style={[styles.newsItem]}>
+                                            <Text style={styles.newsTitle} numberOfLines={1}>
+                                                {v.title}
+                                            </Text>
+                                            <Image
+                                                source={{
+                                                    // uri: 'https://i.pinimg.com/736x/50/df/34/50df34b9e93f30269853b96b09c37e3b.jpg'
+                                                    uri: v.img
+                                                }}
+                                                style={styles.newsImage}
+                                            />
+                                            <Text style={styles.newsDate}>
+                                                {v.date}
+                                            </Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                </View>
+
+                            )
+                        })
+                    }
+                </View>
+            </ScrollView>
+        )
+    } else {
+        return (
+            <View style={styles.wrapper}>
+                {
+                    Platform.OS !== 'web' && state.news && <FlatList
                         data={state.news.length !== 0 ? state.news : null}
                         renderItem={({ item }) => (
                             <View style={styles.newsContainer}>
@@ -66,10 +100,10 @@ const News = props => {
                         refreshing={state.refreshing}
                         onRefresh={handleRefresh}
                     />
-            }
-
-        </View>
-    )
+                }
+            </View>
+        )
+    }
 }
 
 News.navigationOptions = {
@@ -78,6 +112,11 @@ News.navigationOptions = {
 
 
 const styles = StyleSheet.create({
+    wrapper: {
+        flex: 1,
+        flexDirection: Platform.OS === 'web' ? 'row' : null,
+        flexWrap: Platform.OS === 'web' ? 'wrap' : null,
+    },
     loader: {
         backgroundColor: 'green',
         color: 'white',
@@ -92,23 +131,31 @@ const styles = StyleSheet.create({
         elevation: 3,
     },
     newsContainer: {
+        minWidth: 300,
+        maxWidth: Platform.OS === 'web' ? '100%' : null,
         justifyContent: "center",
         alignItems: 'center',
         paddingHorizontal: 0,
+        display: Platform.OS === 'web' ? 'flex' : null,
+        flexDirection: Platform.OS === 'web' ? 'row' : null,
+        flexWrap: Platform.OS === 'web' ? 'wrap' : null,
     },
     newsImage: {
-        width: Platform.OS === 'web' ? 730 : 320,
-        height: Platform.OS === 'web' ? 400 : 200,
+        minWidth: Platform.OS === 'web' ? '100%' : '100%',
+        height: Platform.OS === 'web' ? 200 : 200,
     },
     newsItem: {
+        minWidth: 300,
         padding: 5,
         overflow: "hidden"
     },
     newsTitle: {
+        maxWidth: Platform.OS === 'web' ? 300 : '100%',
+        minWidth: 300,
         fontSize: 16,
         color: '#00185c',
         fontWeight: 'bold',
-        width: Platform.OS === 'web' ? 730 : 320,
+        // width: Platform.OS === 'web' ? 730 : 320,
     },
     newsDate: {
         fontSize: 12,
@@ -124,7 +171,7 @@ const styles = StyleSheet.create({
     whiteBackground: {
         backgroundColor: 'white',
         marginVertical: 10,
-        marginHorizontal: 10
+        marginHorizontal: 10,
     }
 })
 

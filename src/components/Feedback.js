@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, Text, StyleSheet, TextInput, Button } from 'react-native'
+import { View, Text, StyleSheet, TextInput, Button, Platform } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import * as actions from '../reducer/actions'
 
@@ -38,7 +38,9 @@ const Feedback = props => {
 
 const styles = StyleSheet.create({
     feedbackWrapper: {
-        padding: 10
+        padding: 10,
+        maxWidth: Platform.OS === 'web' ? 700 : null,
+        alignSelf: Platform.OS === 'web' ? 'center' : null
     },
     textInpit: {
         marginTop: 10,

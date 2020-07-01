@@ -2,6 +2,7 @@
   "expo": {
     "name": "rn-digital-news",
     "slug": "rn-digital-news",
+    "description": "news from digital.orb.ru",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -18,6 +19,9 @@
     ],
     "ios": {
       "supportsTablet": true
+    },
+    "android": {
+      "package": "com.lexapetrov.digitalnews"
     },
     "web": {
       "favicon": "./assets/favicon.png"
