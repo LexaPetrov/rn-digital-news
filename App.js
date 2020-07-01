@@ -5,7 +5,7 @@ import Services from './src/components/Services'
 import Post from './src/components/Post'
 import { Platform } from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createStackNavigator, TransitionSpecs } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { FontAwesome5, MaterialIcons } from '@expo/vector-icons';
 const Tab = createBottomTabNavigator();
@@ -93,6 +93,7 @@ export default function App() {
                 backgroundColor: Platform.OS === 'android' ? '#00185c' : 'white',
               },
               headerTintColor: Platform.OS === 'android' ? 'white' : '#00185c',
+              headerTruncatedBackTitle: false
             }
           }
         />
@@ -102,7 +103,8 @@ export default function App() {
               backgroundColor: Platform.OS === 'android' ? '#00185c' : 'white'
             },
             headerTintColor: Platform.OS === 'android' ? 'white' : '#00185c',
-            headerTitle: 'Post'
+            headerTitle: 'Post',
+            headerTruncatedBackTitle: false
           }}
         />
       </Stack.Navigator>
