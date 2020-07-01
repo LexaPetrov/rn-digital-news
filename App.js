@@ -5,7 +5,7 @@ import Services from './src/components/Services'
 import Post from './src/components/Post'
 import { Platform } from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createStackNavigator, TransitionSpecs } from '@react-navigation/stack';
+import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { FontAwesome5, MaterialIcons } from '@expo/vector-icons';
 const Tab = createBottomTabNavigator();

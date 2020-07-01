@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'black',
         color: 'white',
         borderRadius: 5,
-        width: 140,
+        width: 150,
         marginTop: 2,
         overflow: "hidden",
         textAlign: "center"
