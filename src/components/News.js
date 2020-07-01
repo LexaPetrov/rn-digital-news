@@ -13,12 +13,6 @@ const News = props => {
         actions.getNews(dispatch)
     }, [])
 
-    setTimeout(() => {
-        if (state.news.length === 0) {
-            actions.getNewsFromGithub(dispatch)
-        }
-    }, 5000)
-
     const onPress = (v) => {
         let info = {
             text: v.text,

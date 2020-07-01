@@ -13,10 +13,11 @@ export const getNews = async (dispatch) => {
         .then((res) => {
             dispatch({ type: FETCH_NEWS, payload: res })
             dispatch({type: 'REFRESHING_FALSE'})
-        }).catch(err => { getNewsFromGithub(dispatch) })
+        }).catch(err => {console.log('getNews err - ', err); dispatch({type: 'REFRESHING_TRUE'}); getNewsFromGithub(dispatch);  })
 }
 
 export const getNewsFromGithub = async (dispatch) => {
+    console.log('fetching from github...');
     await fetch('https://raw.githubusercontent.com/LexaPetrov/rn-digital-news/master/backend/fetch.json')
         .then(async res => {
             if (!res.ok) throw Error(res.status)

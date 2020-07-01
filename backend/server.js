@@ -37,5 +37,6 @@ setInterval(() => {
 }, 36000000)
 
 app.listen(4000, () => {
+    init('force')
     console.log('Server listening on 4000');
 })
