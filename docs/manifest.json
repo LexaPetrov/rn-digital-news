@@ -9,6 +9,10 @@
   "orientation": "portrait",
   "related_applications": [
     {
+      "platform": "itunes",
+      "id": "com.petrovlexax.rn-digital-news"
+    },
+    {
       "platform": "play",
       "url": "http://play.google.com/store/apps/details?id=com.lexapetrov.digitalnews",
       "id": "com.lexapetrov.digitalnews"
