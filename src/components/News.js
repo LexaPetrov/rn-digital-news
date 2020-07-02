@@ -28,6 +28,28 @@ const News = props => {
         dispatch({ type: 'REFRESHING_FALSE' })
     }
 
+    const renderNewItem = (item) => {
+        return (
+            <TouchableOpacity onPress={() => onPress(item)}>
+                <View style={[styles.newsItem]}>
+                    <Text style={styles.newsTitle} numberOfLines={1}>
+                        {item.title}
+                    </Text>
+                    <Image
+                        source={{
+                            // uri: 'https://i.pinimg.com/736x/50/df/34/50df34b9e93f30269853b96b09c37e3b.jpg'
+                            uri: item.img
+                        }}
+                        style={styles.newsImage}
+                    />
+                    <Text style={styles.newsDate}>
+                        {item.date}
+                    </Text>
+                </View>
+            </TouchableOpacity>
+        )
+    }
+
     if (Platform.OS === 'web') {
         return (
             <ScrollView>
@@ -36,23 +58,7 @@ const News = props => {
                         state.news.map((v, i) => {
                             return (
                                 <View key={i} style={[styles.shadow, styles.whiteBackground]}>
-                                    <TouchableOpacity onPress={() => onPress(v)}>
-                                        <View style={[styles.newsItem]}>
-                                            <Text style={styles.newsTitle} numberOfLines={1}>
-                                                {v.title}
-                                            </Text>
-                                            <Image
-                                                source={{
-                                                    // uri: 'https://i.pinimg.com/736x/50/df/34/50df34b9e93f30269853b96b09c37e3b.jpg'
-                                                    uri: v.img
-                                                }}
-                                                style={styles.newsImage}
-                                            />
-                                            <Text style={styles.newsDate}>
-                                                {v.date}
-                                            </Text>
-                                        </View>
-                                    </TouchableOpacity>
+                                    {renderNewItem(v)}
                                 </View>
 
                             )
@@ -70,23 +76,7 @@ const News = props => {
                         renderItem={({ item }) => (
                             <View style={styles.newsContainer}>
                                 <View style={[styles.shadow, styles.whiteBackground]}>
-                                    <TouchableOpacity onPress={() => onPress(item)}>
-                                        <View style={[styles.newsItem]}>
-                                            <Text style={styles.newsTitle} numberOfLines={1}>
-                                                {item.title}
-                                            </Text>
-                                            <Image
-                                                source={{
-                                                    // uri: 'https://i.pinimg.com/736x/50/df/34/50df34b9e93f30269853b96b09c37e3b.jpg'
-                                                    uri: item.img
-                                                }}
-                                                style={styles.newsImage}
-                                            />
-                                            <Text style={styles.newsDate}>
-                                                {item.date}
-                                            </Text>
-                                        </View>
-                                    </TouchableOpacity>
+                                    {renderNewItem(item)}
                                 </View>
                             </View>
                         )}
