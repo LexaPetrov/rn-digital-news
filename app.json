@@ -18,7 +18,7 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "bundleIdentifier": "com.petrovlexax.rn-digital-news"
     },
     "android": {
       "package": "com.lexapetrov.digitalnews"

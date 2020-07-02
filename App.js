@@ -3,7 +3,7 @@ import News from './src/components/News'
 import Feedback from './src/components/Feedback'
 import Services from './src/components/Services'
 import Post from './src/components/Post'
-import { Platform } from 'react-native'
+import { Platform, StatusBar } from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
@@ -82,6 +82,7 @@ export default function App() {
 
   return (
     <NavigationContainer>
+      <StatusBar barStyle={Platform.OS === 'ios' ? 'dark-content' : 'light-content'} backgroundColor={Platform.OS === 'android' ? '#00185c' : 'white'}/>
       <Stack.Navigator>
         <Stack.Screen name="#минцифра56" component={navTab}
           options={

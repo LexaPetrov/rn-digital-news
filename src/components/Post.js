@@ -18,6 +18,7 @@ const Post = props => {
 
     return (
         <ScrollView>
+            
             <View style={styles.postWrapper}>
                 <Text style={styles.postTitle}>{info.title}</Text>
                 <Text style={styles.postDate}>{info.date}</Text>

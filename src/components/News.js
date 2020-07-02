@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer } from 'react'
-import { View, Text, Image, ScrollView, TouchableOpacity, StyleSheet, Platform, FlatList, SafeAreaView } from 'react-native'
+import { View, Text, Image, ScrollView, TouchableOpacity, StyleSheet, Platform, FlatList } from 'react-native'
 import reducer from '../reducer/reducer'
 import * as actions from '../reducer/actions'
 const News = props => {
