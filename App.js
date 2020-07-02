@@ -39,9 +39,10 @@ function navTab({ navigation, route }) {
           fontSize: 12,
           margin: 0,
           padding: 0,
-          paddingLeft: Platform.OS === 'web' ? 15 : 0,
-          fontWeight: "bold"
-        }
+          paddingLeft:  0,
+          // fontWeight: "bold",
+        },
+        labelPosition: 'below-icon'
       }}
     >
       <Tab.Screen
