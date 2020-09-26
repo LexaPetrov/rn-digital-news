@@ -55,7 +55,7 @@ function navTab({ navigation, route }) {
         name="News"
         component={News}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         options={{
           tabBarLabel: 'Обращение',
           tabBarIcon: ({ focused }) => (
@@ -64,7 +64,7 @@ function navTab({ navigation, route }) {
         }}
         name="Feedback"
         component={Feedback}
-      />
+      /> */}
       <Tab.Screen
         options={{
           tabBarLabel: 'Сервисы',

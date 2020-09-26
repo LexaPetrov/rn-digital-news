@@ -10,21 +10,24 @@ const News = props => {
     const [state, dispatch] = useReducer(reducer, initialState)
 
     useEffect(() => {
-        actions.getNews(dispatch)
+        actions.getNewsFromGithub(dispatch)
+        // actions.getNews(dispatch)
     }, [])
 
     const onPress = (v) => {
         let info = {
             text: v.text,
             title: v.title,
-            date: v.date
+            date: v.date,
+            link: v.link
         }
         props.navigation.navigate('Post', { screen: 'Post', info, headerBackTitle: 'Назад' })
     }
 
     const handleRefresh = () => {
         dispatch({ type: 'REFRESHING_TRUE' })
-        actions.getNews(dispatch)
+        actions.getNewsFromGithub(dispatch)
+        // actions.getNews(dispatch)
         dispatch({ type: 'REFRESHING_FALSE' })
     }
 
